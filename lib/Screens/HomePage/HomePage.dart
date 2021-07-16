@@ -1,53 +1,87 @@
+import 'package:dr_doc/Components/DoctorCard.dart';
+import 'package:dr_doc/Components/HomePageBanner.dart';
+import 'package:dr_doc/Components/NewsPageView.dart';
+import 'package:dr_doc/Components/SquareCard.dart';
 import 'package:dr_doc/Constants/colors.dart';
+import 'package:dr_doc/Screens/SearchPage/SearchPage.dart';
+import 'package:dr_doc/models/Doctor.dart';
 import 'package:dr_doc/models/DoctorList.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            floating: true,
-            elevation: 50,
-            shadowColor: kPrimaryColor,
-            backgroundColor: Colors.white,
-            centerTitle: true,
-            title: Text(
-              "Dr. Doc",
-              style: TextStyle(color: kPrimaryColor),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              floating: true,
+              elevation: 50,
+              shadowColor: kPrimaryColor,
+              backgroundColor: Colors.white,
+              centerTitle: true,
+              title: Text(
+                "Dr. Doc",
+                style: TextStyle(color: kPrimaryColor),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.notifications,
+                    color: kPrimaryColor,
+                  ),
+                ),
+              ],
             ),
-          ),
-          SliverGrid.count(
-            crossAxisCount: 2,
-            children: docList
-                .map((e) => Container(
-                      padding: EdgeInsets.all(15),
-                      margin: EdgeInsets.all(5),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: CircleAvatar(
-                              radius: 50,
-                              backgroundImage: NetworkImage(e.urlToImage == null
-                                  ? "https://source.unsplash.com/random"
-                                  : "${e.urlToImage}"),
-                            ),
-                          ),
-                          Text(
-                            "${e.name}",
-                            style: TextStyle(fontSize: 20),
-                          )
-                        ],
-                      ),
-                    ))
-                .toList(),
-          )
-        ],
+            SliverToBoxAdapter(
+              child: HomePageBanner(),
+            ),
+            SliverToBoxAdapter(
+                child: Divider(
+              height: 20,
+            )),
+            SliverGrid.count(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                children: [
+                  SquareCard(
+                    callFunction: () => Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SearchPage())),
+                  ),
+                  SquareCard(
+                    callFunction: () {},
+                  ),
+                ]),
+            SliverToBoxAdapter(
+                child: Divider(
+              height: 20,
+            )),
+            SliverToBoxAdapter(
+              child: NewsPageView(),
+            ),
+            SliverToBoxAdapter(
+                child: Divider(
+              height: 20,
+            )),
+            SliverGrid.count(
+              crossAxisCount: 2,
+              children: docList.map((e) {
+                return DoctorCard(doctor: e);
+              }).toList(),
+            )
+          ],
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         child: Container(
