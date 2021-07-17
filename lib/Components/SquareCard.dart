@@ -13,7 +13,7 @@ class SquareCard extends StatelessWidget {
     return GestureDetector(
       onTap: callFunction,
       child: Container(
-          margin: EdgeInsets.only(left: 4),
+          margin: EdgeInsets.only(left: 8),
           child: Stack(
             children: [
               Positioned(

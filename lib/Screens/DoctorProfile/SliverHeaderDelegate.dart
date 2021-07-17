@@ -1,10 +1,11 @@
+import 'package:dr_doc/Constants/colors.dart';
 import 'package:dr_doc/models/Doctor.dart';
 import 'package:flutter/material.dart';
 
-class Delegate extends SliverPersistentHeaderDelegate {
+class SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Doctor doctor;
 
-  Delegate(this.doctor);
+  SliverHeaderDelegate(this.doctor);
 
   @override
   Widget build(
@@ -25,13 +26,27 @@ class Delegate extends SliverPersistentHeaderDelegate {
             ),
           ),
           Positioned(
-            top: 5,
-            bottom: 20,
-            left: 20,
-            right: 20,
+            top: 0,
+            bottom: 30,
+            left: 30,
+            right: 30,
             child: CircleAvatar(
               radius: 20,
               backgroundImage: NetworkImage(doctor.urlToImage),
+            ),
+          ),
+          Positioned(
+            bottom: 2,
+            left: 0,
+            right: 0,
+            child: Text(
+              doctor.name,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: kPrimaryColor,
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           )
         ],

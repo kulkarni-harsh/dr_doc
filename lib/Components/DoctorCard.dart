@@ -1,6 +1,6 @@
 import 'package:dr_doc/Constants/colors.dart';
 import 'package:dr_doc/Constants/doubles.dart';
-import 'package:dr_doc/Screens/DoctorProfile.dart/DoctorProfile.dart';
+import 'package:dr_doc/Screens/DoctorProfile/DoctorProfile.dart';
 import 'package:dr_doc/models/Doctor.dart';
 import 'package:flutter/material.dart';
 
@@ -79,14 +79,12 @@ class DoctorCard extends StatelessWidget {
               ),
               Positioned(
                 top: 0,
-                left: 0,
-                right: 0,
+                left: 1,
+                right: 1,
                 child: CircleAvatar(
                   radius: 45,
                   backgroundImage: NetworkImage(
-                    doctor.urlToImage == null
-                        ? "https://source.unsplash.com/random"
-                        : "${doctor.urlToImage}",
+                    doctor.urlToImage,
                   ),
                 ),
               )
