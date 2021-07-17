@@ -19,68 +19,91 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              floating: true,
-              elevation: 50,
-              shadowColor: kPrimaryColor,
-              backgroundColor: Colors.white,
-              centerTitle: true,
-              title: Text(
-                "Dr. Doc",
-                style: TextStyle(color: kPrimaryColor),
+      body: SafeArea(
+        child: Container(
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                floating: true,
+                elevation: 50,
+                shadowColor: kPrimaryColor,
+                backgroundColor: Colors.white,
+                centerTitle: true,
+                title: Text(
+                  "Dr. Doc",
+                  style: TextStyle(color: kPrimaryColor),
+                ),
+                actions: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.notifications,
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                ],
               ),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.notifications,
-                    color: kPrimaryColor,
+              SliverToBoxAdapter(
+                child: HomePageBanner(),
+              ),
+              SliverToBoxAdapter(
+                  child: Divider(
+                height: 20,
+              )),
+              SliverGrid.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  children: [
+                    SquareCard(
+                      callFunction: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SearchPage())),
+                    ),
+                    SquareCard(
+                      callFunction: () {},
+                    ),
+                  ]),
+              SliverToBoxAdapter(
+                  child: Divider(
+                height: 20,
+              )),
+              SliverToBoxAdapter(
+                child: NewsPageView(),
+              ),
+              SliverToBoxAdapter(
+                  child: Divider(
+                height: 30,
+              )),
+              SliverToBoxAdapter(
+                child: Text(
+                  "Our Top Doctors 👨‍⚕️",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-              ],
-            ),
-            SliverToBoxAdapter(
-              child: HomePageBanner(),
-            ),
-            SliverToBoxAdapter(
-                child: Divider(
-              height: 20,
-            )),
-            SliverGrid.count(
+              ),
+              SliverGrid.count(
                 crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                children: [
-                  SquareCard(
-                    callFunction: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SearchPage())),
+                children: getQuickList().map((e) {
+                  return DoctorCard(doctor: e);
+                }).toList(),
+              ),
+              SliverToBoxAdapter(
+                child: Text(
+                  "And More      ",
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[800],
                   ),
-                  SquareCard(
-                    callFunction: () {},
-                  ),
-                ]),
-            SliverToBoxAdapter(
-                child: Divider(
-              height: 20,
-            )),
-            SliverToBoxAdapter(
-              child: NewsPageView(),
-            ),
-            SliverToBoxAdapter(
-                child: Divider(
-              height: 20,
-            )),
-            SliverGrid.count(
-              crossAxisCount: 2,
-              children: docList.map((e) {
-                return DoctorCard(doctor: e);
-              }).toList(),
-            )
-          ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomAppBar(

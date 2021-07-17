@@ -1,3 +1,4 @@
+import 'package:dr_doc/Constants/styles.dart';
 import 'package:dr_doc/Screens/SearchPage/SearchPage.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: inputBoxStyle,
+          enabledBorder: inputBoxStyle,
           focusColor: Colors.white,
           fillColor: Colors.white,
           hoverColor: Colors.white,

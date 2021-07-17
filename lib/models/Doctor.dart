@@ -1,18 +1,18 @@
 class Doctor {
-  final String? name;
-  final String? degree;
-  final String? specialization;
+  final String name;
+  final String degree;
+  final String specialization;
   final String? location;
   final int? phoneNumber;
   final String? address;
-  final String? urlToImage;
+  final String urlToImage;
 
   Doctor(
-      {this.name,
-      this.degree,
-      this.specialization,
+      {required this.name,
+      required this.degree,
+      required this.specialization,
       this.location,
       this.phoneNumber,
       this.address,
-      this.urlToImage});
+      required this.urlToImage});
 }

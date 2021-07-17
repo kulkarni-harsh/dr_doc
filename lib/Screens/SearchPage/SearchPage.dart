@@ -1,3 +1,4 @@
+import 'package:dr_doc/Components/DoctorCard.dart';
 import 'package:dr_doc/Constants/colors.dart';
 import 'package:dr_doc/models/DoctorList.dart';
 import 'package:flutter/material.dart';
@@ -41,41 +42,16 @@ class SearchPage extends StatelessWidget {
                 ),
               ],
             ),
+            SliverToBoxAdapter(
+                child: SizedBox(
+              height: 20,
+            )),
             SliverGrid.count(
               crossAxisCount: 2,
               children: docList.map((e) {
-                return AnimatedContainer(
-                  decoration: BoxDecoration(
-                    color: kPrimaryColor.withOpacity(0.1),
-                    border: Border(
-                      bottom: BorderSide(width: 1, color: kPrimaryColor),
-                    ),
-                  ),
-                  padding: EdgeInsets.all(15),
-                  margin: EdgeInsets.all(5),
-                  duration: Duration(seconds: 2),
-                  child: GestureDetector(
-                    child: Column(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: CircleAvatar(
-                            radius: 50,
-                            backgroundImage: NetworkImage(e.urlToImage == null
-                                ? "https://source.unsplash.com/random"
-                                : "${e.urlToImage}"),
-                          ),
-                        ),
-                        Text(
-                          "${e.name}",
-                          style: TextStyle(fontSize: 20),
-                        )
-                      ],
-                    ),
-                  ),
-                );
+                return DoctorCard(doctor: e);
               }).toList(),
-            )
+            ),
           ],
         ),
       ),
